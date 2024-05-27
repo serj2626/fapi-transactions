@@ -4,9 +4,14 @@
 ### Linux ###
 *~
 
+### KEYS
+certs
+certs/
+*.pem
+
 # temporary files which can be created if a process still has a handle open of a deleted file
 .fuse_hidden*
-certs/
+
 # KDE directory preferences
 .directory
 

@@ -1,7 +1,7 @@
 from src.database import async_session
 from src.auth.models import User
 from sqlalchemy import select
-from .schemas import SUserCreate
+from .schemas import SUserAuth
 
 
 class AuthCRUD:
@@ -15,9 +15,16 @@ class AuthCRUD:
             return result.scalar()
 
     @classmethod
-    async def create_user(cls, user: SUserCreate) -> User:
+    async def create_user(cls, user: SUserAuth) -> User:
         async with async_session() as session:
             new_user = User(**user.model_dump())
             session.add(new_user)
             await session.commit()
             return new_user
+
+    @classmethod
+    async def find_one_or_none(cls, **kwargs):
+        async with async_session() as session:
+            query = select(cls._model).filter_by(**kwargs)
+            result = await session.execute(query)
+            return result.scalar()
