@@ -1,9 +1,12 @@
 <details>
   <summary>Задачи</summary>
 
-- [X] Code
-- [ ] Review
-- [ ] Commit
+- [X] Подключение к базе данных
+- [X] Alembic для миграции
+- [X] Создание таблиц: users, tasks, transactions
+- [X] Миксин для relationships
+- [ ] Авторизация
+- [ ] JWT авторизация
 
 </details>
 
