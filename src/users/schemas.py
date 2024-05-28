@@ -7,11 +7,6 @@ class SUserAuth(BaseModel):
     password: str
 
 
-class SUserLogin(BaseModel):
-    username: str
-    password: str
-
-
 class TokenInfo(BaseModel):
     access_token: str
     token_type: str

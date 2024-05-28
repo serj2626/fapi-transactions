@@ -6,8 +6,8 @@
 
     :func: encode_jwt - кодирование JWT
     :func: decode_jwt - декодирование JWT
-    :get_password_hash: хеширование пароля
-    :verify_password: проверка пароля
+    :func: get_password_hash: получение хеша пароля
+    :func: verify_password: проверка пароля
 
 """
 
@@ -75,14 +75,3 @@ def get_password_hash(password: str) -> str:
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
     return pwd_context.verify(plain_password, hashed_password)
-
-
-async def authenticate_user(username: str, password: str):
-    user = await UserCRUD.find_one_or_none(username=username)
-    if not user:
-        return None
-
-    if not verify_password(password, user.password):
-        return None
-
-    return user

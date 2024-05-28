@@ -1,16 +1,14 @@
 from fastapi import APIRouter, Depends, Response
 from typing import Annotated
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
-
-from .dependencies import validate_user
+from .dependencies import validate_user, get_current_user
 from .models import User
-from .schemas import SUserAuth, SUserLogin, TokenInfo
+from .schemas import SUserAuth, TokenInfo
 from src.service.exceptions import (
     USER_ALREADY_EXISTS_EXCEPTION,
-    INCORRECT_DATA_EXCEPTION,
 )
 from .crud import UserCRUD
-from .auth import authenticate_user, get_password_hash, encode_jwt, decode_jwt
+from .auth import get_password_hash, encode_jwt
 
 
 router = APIRouter(tags=["Auth & Пользователи"])
@@ -39,28 +37,15 @@ async def register_user(user_data: Annotated[SUserAuth, Depends()]):
 
 
 @router.post("/login", response_model=TokenInfo)
-async def login_user(response: Response, user: User = Depends(validate_user)):
-    jwt_payload = {"sub": user.id, "username": user.username, "email": user.email}
+async def login_user(response: Response, user: SUserAuth = Depends(validate_user)):
+    jwt_payload = {"sub": user.id,
+                   "username": user.username, "email": user.email}
     token = encode_jwt(payload=jwt_payload)
+    response.headers["Authorization"] = f"Bearer {token}"
     # response.set_cookie(key="access_token", value=token, httponly=True)
     return TokenInfo(access_token=token, token_type="Bearer")
 
 
-# @router.post("/login", response_model=TokenInfo)
-# async def login_user(response: Response, user_data: Annotated[SUserLogin, Depends()]):
-#     user = await authenticate_user(user_data.username, user_data.password)
-#     if user is None:
-#         raise INCORRECT_DATA_EXCEPTION
-
-#     jwt_payload = {
-#         "sub": user.id,
-#         "username": user.username,
-#         "email": user.email
-#     }
-#     token = encode_jwt(payload=jwt_payload)
-#     # response.set_cookie(key="access_token", value=token, httponly=True)
-
-#     return TokenInfo(
-#         access_token=token,
-#         token_type="Bearer"
-#     )
+@router.get("/user/me")
+async def get_current_user(user: User = Depends(get_current_user)):
+    return user

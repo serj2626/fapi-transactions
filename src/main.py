@@ -7,9 +7,9 @@ from fastapi.middleware.cors import CORSMiddleware
 
 
 app = FastAPI(
-    title="Счёт расходов и доходов",
+    title="Счётчик расходов и доходов",
     version="0.0.1",
-    description="API для управления задачами и транзакциями приходов и расходов",
+    description="API для управления задачами и транзакциями приходов и расходов д/с",
 )
 
 app.include_router(auth_router, prefix="/auth")
