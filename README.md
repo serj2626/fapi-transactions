@@ -6,8 +6,8 @@
 - [X] Создание таблиц: users, tasks, transactions
 - [X] Миксин для relationships
 - [X] Регистрация с хешированием пароля
-- [ ] Авторизация
-- [ ] JWT авторизация
+- [X] Авторизация
+- [X] JWT авторизация
 
 </details>
 
@@ -42,3 +42,9 @@
 > openssl rsa -in jwt-private.pem -outform PEM -pubout -out jwt-public.pem
 
 > openssl genrsa -out jwt-private.pem 2048
+
+
+
+
+
+> ⛔️ **Frontend**: В стадии разработки
