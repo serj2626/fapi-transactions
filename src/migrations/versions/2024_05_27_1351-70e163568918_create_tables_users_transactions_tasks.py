@@ -45,7 +45,9 @@ def upgrade() -> None:
     )
     op.create_table(
         "transactions",
-        sa.Column("type", sa.Enum("INCOME", "EXPENSE", name="typeoperation"), nullable=False),
+        sa.Column(
+            "type", sa.Enum("INCOME", "EXPENSE", name="typeoperation"), nullable=False
+        ),
         sa.Column(
             "category",
             sa.Enum(

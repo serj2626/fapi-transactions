@@ -2,7 +2,7 @@ from logging.config import fileConfig
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 from src.base import Base
-from src.auth import User
+from src.users import User
 from src.transactions import Transaction
 from src.tasks import Task
 from alembic import context

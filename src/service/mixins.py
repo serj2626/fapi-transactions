@@ -3,7 +3,7 @@ from sqlalchemy import ForeignKey
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from src.auth import User
+    from src.users import User
 
 
 class UserRelationshipMixin:

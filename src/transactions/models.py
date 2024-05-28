@@ -29,7 +29,7 @@ class Transaction(UserRelationshipMixin, Base):
     type: Mapped[TypeOperation]
     category: Mapped[Category]
     description: Mapped[str | None]
-    price:  Mapped[int] = mapped_column(default=0, server_default="0")
+    price: Mapped[int] = mapped_column(default=0, server_default="0")
     date: Mapped[datetime] = mapped_column(
         server_default=text("TIMEZONE('utc', now())")
     )

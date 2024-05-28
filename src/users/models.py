@@ -1,6 +1,6 @@
 from src.base import Base
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from sqlalchemy import String
+from sqlalchemy import String, Text
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -9,11 +9,13 @@ if TYPE_CHECKING:
 
 
 class User(Base):
-    username: Mapped[str] = mapped_column(String(26), unique=True)
-    email: Mapped[str] = mapped_column(String(36), unique=True)
-    password: Mapped[str] = mapped_column(nullable=False)
+    username: Mapped[str] = mapped_column(unique=True)
+    email: Mapped[str] = mapped_column(unique=True)
+    password: Mapped[str]= mapped_column(Text)
 
-    transactions: Mapped[list["Transaction"]] = relationship(back_populates="user")
+
+    transactions: Mapped[list["Transaction"]
+                         ] = relationship(back_populates="user")
     tasks: Mapped[list["Task"]] = relationship(back_populates="user")
 
     def __repr__(self):
