@@ -1,16 +1,26 @@
-from fastapi import HTTPException
+from fastapi import HTTPException, status
 
+INVALID_USERNAME_OR_PASSWORD_EXCEPTION = HTTPException(
+    status_code=status.HTTP_401_UNAUTHORIZED, detail="Неверный логин или пароль"
+)
 
-INVALID_TOKEN_EXCEPTION = HTTPException(status_code=401, detail="Неверный токен")
+INVALID_TOKEN_EXCEPTION = HTTPException(
+    status_code=status.HTTP_401_UNAUTHORIZED, detail="Неверный токен"
+)
 
-INVALID_PASSWORD_EXCEPTION = HTTPException(status_code=401, detail="Неверный пароль")
+INVALID_PASSWORD_EXCEPTION = HTTPException(
+    status_code=status.HTTP_401_UNAUTHORIZED, detail="Неверный пароль"
+)
 
 USER_ALREADY_EXISTS_EXCEPTION = HTTPException(
-    status_code=400, detail="Пользователь с таким логином или email уже существует"
+    status_code=status.HTTP_409_CONFLICT,
+    detail="Пользователь с таким логином или email уже существует",
 )
 
 USER_NOT_FOUND_EXCEPTION = HTTPException(
-    status_code=404, detail="Пользователь не найден"
+    status_code=status.HTTP_404_NOT_FOUND, detail="Пользователь не найден"
 )
 
-INCORRECT_DATA_EXCEPTION = HTTPException(status_code=401, detail="Некорректные данные")
+INCORRECT_DATA_EXCEPTION = HTTPException(
+    status_code=status.HTTP_401_UNAUTHORIZED, detail="Некорректные данные"
+)
